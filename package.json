@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "0.1.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "co": "^4.6.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "lodash": "^4.11.2",
+    "mongoose": "^4.4.14",
+    "path": "^0.12.7",
+    "request": "^2.72.0",
+    "sanitize-html": "^1.11.4"
+  },
+  "author": {
+    "name": "Florin Voicu",
+    "email": "florinvoicuu@gmail.com"
+  },
+  "license": "UNLICENSED"
+}
+
