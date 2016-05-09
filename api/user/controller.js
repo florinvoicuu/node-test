@@ -3,7 +3,7 @@
 var  mongoose = require('mongoose');
 var  sanitize = require('sanitize-html');
 var  request  = require('request');
-var  jwt      = require('jwt');
+var  jwt      = require('jsonwebtoken');
 
 var config    = require('../../config/config');
 var coe       = require('../../modules/coe');
