@@ -73,7 +73,7 @@ module.exports = {
     /**
      * Authenticate and return the user object
      */
-    authenticate: coe(function *(req, res) {
+    authenticate: coe(function *(req,res) {
         if (!req.body.email)
             return res.status(400).send('Email required');
 

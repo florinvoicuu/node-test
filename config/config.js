@@ -18,10 +18,10 @@ module.exports = {
         }
     },
     mail: {
-        service: 'Zoho',
+        service: 'Gmail',
         auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASS
+            user: 'Alfa0Beta0Charlie@gmail.com',
+            pass: 'Tester123'
         }
     },
     session_secret: process.env.SESSION_SECRET || 'mysecretsession'

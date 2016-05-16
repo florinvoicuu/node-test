@@ -7,7 +7,7 @@ var config        = require('./config/config');
 var configExpress = require('./config/express');
 var configRoutes  = require('./config/routes');
 
-mongoose.connect(config.mongodb.uri, config.mongodb.options);
+mongoose.connect(config.mongodb.uri);
 
 var app = express();
 
