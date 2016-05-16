@@ -7,7 +7,7 @@ module.exports = express => {
 
     // CRUD
     router.post   ('/',     user.create);
-    router.get    ('/:id',  user.retrieve);
+    router.get    ('/:id?',  user.retrieve);
     router.put    ('/:id',  user.update);
     router.delete ('/:id',  user.delete);
 

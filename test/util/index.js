@@ -8,7 +8,7 @@ module.exports = {
 
         ${res.statusCode} : ${res.statusMessage}
         `,
-    getJTCookie: headers => {
+    getJWTCookie: headers => {
         if (headers['set-cookie']) {
             for (let cookie of headers['set-cookie']) {
                 if (cookie.indexOf('jwt=') === 0) {
@@ -21,7 +21,7 @@ module.exports = {
     getXSRFToken: headers => {
         if (headers['set-cookie']) {
             for (let cookie of headers['set-cookie']) {
-                if(cookie.indexOf('XSRF-TOKEN=') === 0) {
+                if (cookie.indexOf('XSRF-TOKEN=') === 0) {
                     return cookie.split(';')[0].split('XSRF-TOKEN=')[1];
                 }
             }

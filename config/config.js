@@ -3,7 +3,7 @@
 var path = require('path');
 
 module.exports = {
-    env: process.env.NODE_ENV || 'test',
+    env: process.env.NODE_ENV || 'development',
     root: path.normalize(__dirname + '/..'),
     port: process.env.TEST_PORT || 3000,
     ip: process.env.IP || null,

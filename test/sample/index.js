@@ -2,7 +2,7 @@
 
 var co = require('co');
 
-module.exports =  request => {
+module.exports = request => {
     let sample = {
         user: inc => ({
             email: `user${inc}@domain.com`,
@@ -13,7 +13,7 @@ module.exports =  request => {
 
             return {
                 user: userId,
-                content: `My Comment${inc}`
+                content: `<div><img src="img${inc}.jpg" /></div>`
             };
         })
     };

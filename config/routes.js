@@ -15,7 +15,8 @@ module.exports = function (app, express) {
 };
 
 function addUser(req, res, next) {
-    jwt.verify(req.cookies['jwt'], config.session_secret, function (err, user) {
-        req.user = user|| {};
+    jwt.verify(req.cookies['jwt'], config.session_secret, function(err, user) {
+        req.user = user || {};
+        next();
     });
 }

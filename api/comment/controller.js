@@ -73,8 +73,6 @@ module.exports = {
         if (req.query.content)
             query.content = { $regex: req.query.content, $options: 'i' }; // must contain string in content (case insensitive)
 
-        if (!req.user || _.isEmpty(_.intersection((yield User.findById(req.user._id, null, { lean: true })).roles, ['user'])))
-
         let range = parseRange(req.headers['range']);
 
         let comments = yield Comment.find(query, { lean: true, skip: range.skip, limit: range.limit, sort: '-created', populate: 'user' });

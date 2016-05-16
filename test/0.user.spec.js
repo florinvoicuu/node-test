@@ -21,7 +21,7 @@ var crud = new CRUD({
     properties: ['email']
 });
 
-describe('User', function() {
+describe('User', () => co( function *() {
     // Clear relevant collections
     before(done => co(function *() {
         yield new Promise(resolve => mongoose.connection.collections['users'].drop(resolve));
@@ -36,4 +36,36 @@ describe('User', function() {
             yield crud.createResource(sample.user);
         }));
     });
-});
+
+    describe(`GET ${uri}/:id`, () => {
+        it('should retrieve a user', () => co (function *() {
+            yield crud.retrieveResource();
+        }));
+    });
+
+    describe(`PUT ${uri}/:id`, () => {
+        it('should update a user', () => co (function *() {
+            yield crud.updateResource(sample.user);
+        }));
+    });
+
+    describe(`DELETE ${uri}/:id`, () => {
+        it('should delete a user', () => co (function *() {
+            yield crud.deleteResource();
+        }));
+    });
+
+    //Other
+    describe(`GET ${uri}`, () => {
+        it('should retrieve the authenticated user', () => co (function *() {
+            let user = (yield request({ uri: uri, method: 'POST', body: sample.user() })).body;
+
+            let res = yield request({ uri: uri });
+
+            expect(res.statusCode).to.equal(200, util.errMsg(res, 'body'));
+            expect(res.body).to.be.an('object', util.errMsg(res, 'body'));
+            expect(res.body.email).to.equal(user.email, util.errMsg( res, 'body'));
+            expect(res.body._id).to.be.a('string', util.errMsg(res, 'body'));
+        }));
+    });
+}));

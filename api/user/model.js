@@ -31,10 +31,6 @@ var UserSchema = new Schema({
         type: String,
         select: false
     },
-    verified: {
-        type: Boolean,
-        select: false
-    }
 }, { timestamps: { createdAt: 'created', updatedAt: 'updated' } });
 
 /**
