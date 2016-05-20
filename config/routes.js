@@ -11,6 +11,8 @@ module.exports = function (app, express) {
     app.use('/api/user', require(config.root + '/api/user')(express));
     app.use('/api/comment', require(config.root + '/api/comment')(express));
 
+    // app.use('/api/user/signin', require(config.root + '/public/app.js')(express));
+
     app.post('/contact', contact);
 
     app.get('/*', (req, res) => res.sendFile(config.root + '/public/index.html'));

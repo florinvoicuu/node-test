@@ -1,8 +1,36 @@
 'use strict';
 
 angular.module('app', ['ngRoute', 'ngResource'])
-    /*.factory('User', function ($resource) {
-        return $resource('/user/:id', { id: '@_id' }, {
+
+    .config(function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
+        $routeProvider
+            .when('/', {
+                controller: 'SignCtrl as user',
+                templateUrl:'sign.html'
+            })
+            .when('/signup', {
+                controller:'SignCtrl as user',
+                templateUrl:'sign.html'
+            })
+            .when('/signin', {
+                controller: 'SignCtrl as user',
+                templateUrl:'sign.html'
+            })
+            .otherwise({
+                redirectTo:'/'
+            });
+    })
+
+    .run(function (User, $rootScope) {
+        $rootScope.auth = {};
+        User.get({}, function (user) {
+            $rootScope.auth = user;
+        });
+    })
+
+    .factory('User', function ($resource) {
+        return $resource('/api/user/:id', { id: '@_id' }, {
             create: {
                 method: 'POST'
             },
@@ -14,35 +42,34 @@ angular.module('app', ['ngRoute', 'ngResource'])
             },
             signin: {
                 method: 'POST',
-                url: '/signin'
+                url: '/api/user/signin'
             }
         });
     })
-*/
-    .config(function ($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode(true);
-        $routeProvider
-            .when('/', {
-                controller: 'SignCtrl',
-                templateUrl:'sign.html',
-                controllerAs: 'user'
-            })
-            .when('/signup', {
-                controller:'SignCtrl',
-                templateUrl:'index.html',
-                controllerAs: 'user'
-            })
-            .when('/signin', {
-                controller: 'SignCtrl',
-                templateUrl:'index.html',
-                controllerAs: 'user'
-            })
-            .otherwise({
-                redirectTo:'/'
-            });
-    })
 
-    .controller('SignCtrl', function() {
-        this.message = 'aaaa';
+    .controller('SignCtrl', function($location, User) {
+        var user = this;
+
+        let url = $location.url();
+        user.up = url.indexOf('signup') !== -1;
+
+        user.model = {
+            email: '',
+            password: ''
+        };
+
+        user.signup = function () {
+            user.service = new User(user.model);
+            user.service.$create().then(function () {
+                console.log('Succes');
+            }).catch(console.log);
+        };
+
+        user.signin = function () {
+            user.service = new User(user.model);
+            user.service.$signin().then(function () {
+                console.log('Succes');
+            }).catch(console.log);
+        };
     });
 
