@@ -12,7 +12,7 @@ module.exports = express => {
     router.delete ('/:id',          comment.delete);
 
 // OTHER
-    router.get    ('/',             comment.retrieveRange);
+    //router.get    ('/',             comment.retrieveRange);
     //router.get    ( '/approve/:id', comment.approve);
     //router.get    ( '/vote/:id',    comment.vote);
 

@@ -1,0 +1,12 @@
+<div ng-if="auth._id">
+    <p>Logged In!!!</p>
+    <ul>
+        <form ng-submit>
+            <label for="comments">Other Comments: </label>
+            <div id="comments" ng-model="comments"></div>
+            <label for="comments" ng-repeat="comment in comments">Your comment: </label>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <button type="submit" class="ui-button">Submit</button>
+        </form>
+    </ul>
+</div>

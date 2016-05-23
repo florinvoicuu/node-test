@@ -41,6 +41,21 @@ module.exports = {
     }),
 
     /**
+     * Get an array of Comments
+     */
+    retrieve: coe(function *(req, res) {
+
+        let comments = yield Comments.find(query, content, { lean: true, populate: 'comment' });
+
+        if (!comments)
+            return res.status(404).end();
+
+
+        res.json(comments);
+    }),
+
+
+    /**
      * Updates an existing Comment in the DB.
      */
     update: coe(function *(req, res) {
