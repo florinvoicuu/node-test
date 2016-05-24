@@ -1,0 +1,19 @@
+<div class="container" style="align-content: center">
+<div ng-if="comments.list.length">
+    <ul class="list-unstyled">
+        <li ng-repeat="comment in comments.list">
+            <button type="button" class="close" aria-label="Close"><span aria-hidden="true" ng-click="comments.delete(comment._id)">&times;</span></button>
+            {{comment.content}}
+        </li>
+    </ul>
+</div>
+
+<div ng-if="!comments.list.length">
+    No comments yet!
+</div>
+
+<form ng-submit="comments.add()">
+    <textarea ng-model="comments.model.content" name="comment" id="comment" cols="150" rows="10" placeholder="Comment"></textarea>
+    <button type="submit">Comment</button>
+</form>
+</div>

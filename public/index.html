@@ -1,80 +1,16 @@
-<!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="project">
 <head>
-
-    <base href="/">
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <base href="/">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
-    <script src="app.js"></script>
-    <title>Testing Testing Testing</title>
+    <script src="index.js"></script>
 </head>
-
 <body>
 <div ng-view></div>
 </body>
 </html>
-
-
-<!--
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <title>Testing</title>
-    </head>
-
-    <body>
-        <h1> It's working!!!!</h1>
-        <div class="container">
-
-            <form id="signup" class="form-signin">
-                <h3 class="form-signin-heading"> Sign in : </h3>
-                <label for="email" class="sr-only">Email address</label>
-                    <input name="email" type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
-                <label for="password" class="sr-only">Password</label>
-                    <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
-
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
-
-        </div>
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
-
-        <script>
-            $( "#signup" ).submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: '/api/user',
-                    type: 'POST',
-                    data: {
-                        email: $("#email").val(),
-                        password: $("#password").val()
-                    },
-                    dataType: 'json',
-                    headers: {
-                        "X-XSRF-TOKEN": $.cookie("XSRF-TOKEN")
-                    }
-                })
-                        .done(function(data) {
-                            alert(JSON.stringify(data));
-                        })
-                        .fail(function(xhr, status, err) {
-                            alert(err);
-                        });
-            });
-        </script>
-    </body>
-
-</html>-->

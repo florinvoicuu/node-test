@@ -14,7 +14,7 @@ module.exports = {
             if (err)
                 return res.status(500).send(err);
 
-            res.cookie('jwt', jwt.sign({ _id: user._id }, 'test', { expiresIn: 5 * 60 * 60 }));
+            res.cookie('jwt', jwt.sign({ _id: user._id }, 'florin', { expiresIn: 5 * 60 * 60 }));
 
             res.location('/api/user/' + user._id).status(201).json(user);
         });
@@ -29,6 +29,9 @@ module.exports = {
         User.findById(id, (err, user) => {
             if (err)
                 return res.status(500).send(err);
+
+            if (!user)
+                return res.status(404).end();
 
             res.json(user);
         });

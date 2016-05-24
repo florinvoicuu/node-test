@@ -1,23 +1,12 @@
-<!-- <h1> It's working!!!!</h1>
- <div class="container">
-
-     <form id="signup" class="form-signin">
-         <h3 class="form-signin-heading"> Sign in : </h3>
-         <label for="email" class="sr-only">Email address</label>
-             <input name="email" type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
-         <label for="password" class="sr-only">Password</label>
-             <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
-
-         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-     </form>
- </div> -->
-
-<div ng-if="auth.id"><p>Logged In</p></div>
-<div id="formType">{{user.up ? 'SignUp' : 'SignIn'}}</div>
+<div ng-if="auth._id"><p>
+    Logged In!!!
+</p></div>
+<div id="formType">{{user.up ? 'SIGNUPPU' : 'SIGNINNU'}}</div>
 <form ng-submit="user.up ? user.signup() : user.signin()">
-    <label for="email">Email:</label>
-    <input type="text" id="email" ng-model="user.model.email" placeholder="email">
-    <label for="password">Password:</label>
-    <input type="password" id="password" ng-model="user.model.password" placeholder="password">
+    <label for="email">Email: </label>
+    <input id="email" type="text" ng-model="user.model.email" placeholder="email">
+    <label for="password">Password: </label>
+    <input id="password" type="password" ng-model="user.model.password" placeholder="password">
+    <input ng-if="user.up" type="text" ng-model="user.model.color" placeholder="color">
     <button type="submit" class="ui-button">Submit</button>
 </form>

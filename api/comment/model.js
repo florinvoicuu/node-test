@@ -3,22 +3,23 @@
 /**
  * Module dependencies.
  */
-var mongoose  = require('mongoose');
-var Schema    = mongoose.Schema;
-var _         = require('lodash');
+var mongoose = require('mongoose');
 
-var CommentSchema = new Schema ({
+var Schema   = mongoose.Schema;
+
+/**
+ * Comment Schema
+ */
+
+var CommentSchema = new Schema({
     user: {
         type: Schema.ObjectId,
-        ref: 'User',
-        required: "Comment requires an user (id)."
+        required: 'User required'
     },
     content: {
         type: String,
-        required: "Comment requires content.",
-        trim: true
+        required: 'Content required'
     }
-
 }, { timestamps: { createdAt: 'created', updatedAt: 'updated' } });
 
 module.exports = mongoose.model('Comment', CommentSchema);

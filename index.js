@@ -1,5 +1,57 @@
 'use strict';
 
+var express  = require('express');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var jwt = require("jsonwebtoken");
+var csrf = require("csurf");
+
+// mongoose.connect('mongodb://localhost/test-db'); // uncomment when ready to use the database
+
+mongoose.connect('mongodb://localhost/node-test');
+//mongoose.connect(config.mongodb.uri, config.mongodb.options);
+
+
+var app = express();
+
+// Configure express settings
+
+// The usual for websites; Find out what each does, 'npm install ...' them and uncomment
+app.set('trust proxy', true);
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(cookieParser());
+
+app.use(csrf({ cookie: true }));
+app.use(function(req, res, next) {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    next();
+});
+
+app.use(express.static(`${__dirname}/public`));
+
+app.use('/*', (req, res, next) => jwt.verify(req.cookies['jwt'], 'florin', (err, user) => {
+    req.user = user;
+    next();
+}));
+
+// Configure routes
+app.use('/api/user', require(`${__dirname}/api/user`)(express)); // requests to '/user' should work now (after setting up the controller as well)
+app.use('/api/comment', require(`${__dirname}/api/comment`)(express));
+// ...
+app.all('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`)); // Lastly, you serve the index.html
+
+// Start the server/Listen for requests on the desired port
+var server = app.listen(3000, function () {
+    return console.log('Hello World!');
+});
+
+module.exports = server;
+
+
+/*'use strict';
+
 var express         = require('express');
 var mongoose        = require('mongoose');
 
@@ -23,6 +75,7 @@ var server = app.listen(3000, function () {
 });
 
 module.exports = server;
+*/
 /*'use strict';
 
 var express      = require('express');

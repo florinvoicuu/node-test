@@ -24,5 +24,5 @@ module.exports = {
             pass: 'Tester123'
         }
     },
-    session_secret: process.env.SESSION_SECRET || 'mysecretsession'
+    session_secret: process.env.SESSION_SECRET || 'florin'
 };
