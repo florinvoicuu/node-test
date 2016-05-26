@@ -12,10 +12,13 @@ module.exports = function (app, express) {
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
     app.use(bodyParser.json({limit: '10mb'}));
     app.use(cookieParser());
-    app.use(express.static(config.root + '/public'));
+
     app.use(csrf({ cookie: true }));
     app.use(function(req, res, next) {
         res.cookie('XSRF-TOKEN', req.csrfToken());
         next();
     });
-}; 
+
+    app.use(express.static(config.root + '/node_modules'));
+    app.use(express.static(config.root + '/public'));
+};

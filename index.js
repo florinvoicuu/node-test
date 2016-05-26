@@ -1,5 +1,34 @@
 'use strict';
 
+var express         = require('express');
+var mongoose        = require('mongoose');
+
+var config          = require('./config/config');
+var configExpress   = require('./config/express');
+var configRoutes    = require('./config/routes');
+
+mongoose.connect(config.mongodb.uri);
+//mongoose.connect(config.mongodb.uri, config.mongodb.options);   //Ce face Options aici ?
+
+var app = express();
+
+configExpress(app, express);
+configRoutes(app, express);
+//app.use(express.static(`${__dirname}/public`));
+
+
+// Start the server/Listen for requests on the desired port
+var server = app.listen(3000, function () {
+    return console.log(`Dollars listening on port 3000 in ${config.env} mode`);
+});
+
+module.exports = server;
+
+
+
+/*
+'use strict';
+
 var express  = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -31,7 +60,7 @@ app.use(function(req, res, next) {
 
 app.use(express.static(`${__dirname}/public`));
 
-app.use('/*', (req, res, next) => jwt.verify(req.cookies['jwt'], 'florin', (err, user) => {
+app.use('/!*', (req, res, next) => jwt.verify(req.cookies['jwt'], 'florin', (err, user) => {
     req.user = user;
     next();
 }));
@@ -40,7 +69,7 @@ app.use('/*', (req, res, next) => jwt.verify(req.cookies['jwt'], 'florin', (err,
 app.use('/api/user', require(`${__dirname}/api/user`)(express)); // requests to '/user' should work now (after setting up the controller as well)
 app.use('/api/comment', require(`${__dirname}/api/comment`)(express));
 // ...
-app.all('/*', (req, res) => res.sendFile(`${__dirname}/public/index.html`)); // Lastly, you serve the index.html
+app.all('/!*', (req, res) => res.sendFile(`${__dirname}/public/index.html`)); // Lastly, you serve the index.html
 
 // Start the server/Listen for requests on the desired port
 var server = app.listen(3000, function () {
@@ -50,7 +79,13 @@ var server = app.listen(3000, function () {
 module.exports = server;
 
 
-/*'use strict';
+
+
+
+
+
+
+/!*'use strict';
 
 var express         = require('express');
 var mongoose        = require('mongoose');
@@ -75,8 +110,8 @@ var server = app.listen(3000, function () {
 });
 
 module.exports = server;
-*/
-/*'use strict';
+*!/
+/!*'use strict';
 
 var express      = require('express');
 var mongoose     = require('mongoose');
@@ -114,4 +149,5 @@ var server = app.listen(3000, function () {
     return console.log('Hello World!');
 });
 
-module.exports = server;*/
+module.exports = server;*!/
+*/

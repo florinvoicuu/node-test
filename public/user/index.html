@@ -1,0 +1,51 @@
+<!-- Form -->
+<form class="scoutech-form" *ngIf="!user._id" (ngSubmit)="submit()" novalidate>
+    <!-- Ui-40 -->
+    <div class="ui-40">
+        <div class="ui-head bg-green">
+            <!-- Heading -->
+            <h2>Credentiale</h2>
+        </div>
+        <!-- Ui-block -->
+        <div class="ui-block bg-white">
+            <!-- Icon -->
+            <div class="ui-icon">
+                <i class="fa fa-envelope green"></i>
+            </div>
+            <!-- Input box -->
+            <div class="ui-input">
+                <input type="email" class="form-control" [(ngModel)]="user.email" placeholder="email"/>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="ui-block bg-white">
+            <div class="ui-icon">
+                <i class="fa fa-unlock-alt green"></i>
+            </div>
+            <div class="ui-input">
+                <input type="password" class="form-control" [(ngModel)]="user.password" placeholder="password"/><!--tooltip="Your account password" tooltip-placement="right"-->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="ui-block bg-white" *ngIf="signup">
+            <div class="ui-icon">
+                <i class="fa fa-paint-brush green"></i>
+            </div>
+            <div class="ui-input">
+                <input type="color" value="#ff0000" class="form-control"  [(ngModel)]="user.color" placeholder="Choose a color"/><!--tooltip="Your account password" tooltip-placement="right"-->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <!-- Footer -->
+        <div class="ui-foot bg-green">
+            <!-- Buttons -->
+            <button type="submit" class="ui-button">{{signup ? 'SIGN UP' : 'SIGN IN'}}</button>
+        </div>
+    </div>
+</form>
+
+<button class="ui-button text-center" *ngIf="user._id" (click)="signout ()">Sign Out</button>
+<div class="ui-40">
+    <alerts></alerts>
+</div>

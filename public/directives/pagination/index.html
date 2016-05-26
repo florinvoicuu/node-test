@@ -1,0 +1,14 @@
+<div>
+    <ul class="pagination">
+        <li [class.disabled]="first(list.page)"><a (click)="onClick(list.page - 1)" [attr.href]="href(list.page - 1)">&laquo;</a></li>
+
+        <template ngFor let-page [ngForOf]="pages">
+            <li *ngIf="(page >= list.page - 2 && page <= list.page + 2) || first(page) || last(page)" [ngSwitch]="(page != list.page - 2 && page != list.page + 2) || first(page) || last(page)" [class.active]="page == list.page">
+                <a *ngSwitchWhen="true" (click)="onClick(page)" [attr.href]="href(page)">{{page}}</a>
+                <a *ngSwitchDefault (click)="onClick(page)" [attr.href]="href(page)">...</a>
+            </li>
+        </template>
+
+        <li [class.disabled]="last(list.page)"><a (click)="onClick(list.page + 1)" [attr.href]="href(list.page + 1)">&raquo;</a></li>
+    </ul>
+</div>

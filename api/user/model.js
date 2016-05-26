@@ -31,6 +31,10 @@ var UserSchema = new Schema({
         type: String,
         select: false
     },
+    color: {
+        type: String,
+        required: true
+    }
 }, { timestamps: { createdAt: 'created', updatedAt: 'updated' } });
 
 /**

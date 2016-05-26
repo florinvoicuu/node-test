@@ -1,19 +1,19 @@
-
 'use strict';
 
-var sanitize    = require('sanitize-html');
-var jwt         = require('jsonwebtoken');
+var sanitize  = require('sanitize-html');
+var jwt       = require('jsonwebtoken');
 
-var config      = require('./config');
+var config    = require('./config');
 
 module.exports = function (app, express) {
-    app.all('/*', addUser); // Add authenticated user to eq
+    app.all('/*', addUser);  // Add authenticated user to req
 
     app.use('/api/user', require(config.root + '/api/user')(express));
     app.use('/api/comment', require(config.root + '/api/comment')(express));
     app.post('/signup', require(config.root + '/api/user')(express));
 
     app.post('/contact', contact);
+
 
     app.get('/*', (req, res) => res.sendFile(config.root + '/public/index.html'));
 };

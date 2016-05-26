@@ -1,16 +1,46 @@
-<html ng-app="project">
+<html>
 <head>
-    <meta charset="utf-8">
-    <base href="/">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>Node Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
-    <script src="index.js"></script>
+    <base href="/">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app/style.css">
+
+    <!-- 1. Load libraries -->
+    <!-- Configure SystemJS -->
+    <script src="systemjs/dist/system.js"></script>
+    <script>
+        System.config({
+            defaultJSExtensions: true,
+            map: {
+                underscore: 'underscore/underscore-min.js'
+            }
+        });
+    </script>
+
+    <!-- Angular libraries -->
+    <script src="es6-shim/es6-shim.min.js"></script>
+    <script src="angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+    <script src="angular2/bundles/angular2-polyfills.min.js"></script>
+    <script src="rxjs/bundles/Rx.min.js"></script>
+    <script src="angular2/bundles/angular2.min.js"></script>
+    <script src="angular2/bundles/router.min.js"></script>
+    <script src="angular2/bundles/http.min.js"></script>
+    <script src="angular2-cookie/bundles/angular2-cookie.min.js"></script>
+
+    <!-- Other libraries -->
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.import('main').then(null, console.error.bind(console));
+    </script>
 </head>
+<!-- 3. Display the application -->
 <body>
-<div ng-view></div>
+<app></app>
 </body>
 </html>
