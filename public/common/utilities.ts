@@ -2,7 +2,7 @@ import { Injectable } from 'angular2/core';
 import { Response } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
 
-import { AlertComponent, Alert } from '../alert/component';
+import { AlertComponent, Alert } from '../directives/alert/component';
 
 @Injectable()
 export class ObservableUtilities {

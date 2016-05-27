@@ -2,16 +2,18 @@ import { Component, ViewChild, OnInit } from 'angular2/core';
 import { Router, RouteParams } from 'angular2/router';
 import  _ from 'underscore';
 
-import { AlertComponent, Alert } from '../alert/component';
+import { AlertComponent, Alert } from '../directives/alert/component';
 import { ObservableUtilities } from '../common/utilities';
 import { UserService } from './service';
 import { User } from './model';
+import {CommentListComponent} from "../comment/component";
 
 @Component({
     selector: 'user',
     templateUrl: './user/index.html',
     directives: [
-        AlertComponent
+        AlertComponent,
+        CommentListComponent
     ],
     providers: [
         UserService
@@ -37,12 +39,12 @@ export class UserComponent implements OnInit {
     create () {
         this._observable.subscribe(this._user.create(this.user), user => {
             this._alert.add(new Alert('success', 'Felicitari, te-ai inregistrat!'));
-            this._router.navigate(['User', { action: 'panel' }])
+            this._router.navigate(['Comment'])
         });
     }
 
     signin () {
-        this._observable.subscribe(this._user.signin(this.user), user => this._router.navigate(['User', { action: 'panel' }]));
+        this._observable.subscribe(this._user.signin(this.user), user => this._router.navigate(['Comment']));
     }
 
     signout () {

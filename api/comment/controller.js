@@ -71,7 +71,7 @@ module.exports = {
 
         let range = parseRange(req.headers['range']);
 
-        Comment.find(query, '', { lean: true, skip: range.skip, limit: range.limit, sort: '-created' }, (err, comments) => {
+        Comment.find(query, '', { lean: true, skip: range.skip, limit: range.limit, sort: '-created', populate: 'user' }, (err, comments) => {
             if (err)
                 return res.status(500).send(err);
 

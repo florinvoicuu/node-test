@@ -4,7 +4,7 @@ import { Alert, Alerts } from './model';
 
 @Component({
     selector: 'alerts',
-    templateUrl: './alert/index.html'
+    templateUrl: './directives/alert/index.html'
 })
 export class AlertComponent {
     constructor(public alerts: Alerts) {}

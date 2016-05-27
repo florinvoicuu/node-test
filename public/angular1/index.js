@@ -55,9 +55,9 @@ angular.module('project', ['ngRoute', 'ngResource'])
         user.up = url.indexOf('signup') !== -1;
 
         user.model = {
-            email: 'alex',
+            email: '',
             password: '',
-            color: 'pink'
+            color: ''
         };
 
         user.signup = function () {

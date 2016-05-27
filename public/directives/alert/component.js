@@ -37,7 +37,7 @@ System.register(['angular2/core', './model'], function(exports_1, context_1) {
                 AlertComponent = __decorate([
                     core_1.Component({
                         selector: 'alerts',
-                        templateUrl: './alert/index.html'
+                        templateUrl: './directives/alert/index.html'
                     }), 
                     __metadata('design:paramtypes', [model_1.Alerts])
                 ], AlertComponent);

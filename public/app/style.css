@@ -2,7 +2,7 @@
 body {
     color: #666;
     font-size: 13px;
-    background: url(../assets/images/app-site/background-green.jpg) center no-repeat fixed;
+    background:white center no-repeat fixed;
     background-size: cover;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
@@ -633,7 +633,7 @@ hr {
     border: none;
     margin: 15px auto
 }
-.article-main,
+.comment-main,
 img {
     border-radius: 4px
 }
@@ -658,16 +658,16 @@ img {
 .carousel-control {
     cursor: pointer
 }
-.article-main {
+.comment-main {
     background: #FFF;
     padding: 30px
 }
-.article {
+.comment {
     font-size: 16px;
     max-width: 900px;
     margin: 0 auto 30px
 }
-.article-title-header {
+.comment-title-header {
     background: 0 0;
     font-family: Merriweather, serif;
     font-weight: 700;
@@ -678,33 +678,33 @@ img {
     margin-top: 15px;
     color: #000
 }
-.article-title-header a,
-.article-title-header a:focus {
+.comment-title-header a,
+.comment-title-header a:focus {
     color: #000
 }
-.article-title-header a:hover {
+.comment-title-header a:hover {
     color: #555
 }
-.article p,
+.comment p,
 .author-time {
     color: #666;
     font-family: 'Open Sans', sans-serif;
     -webkit-font-smoothing: antialiased
 }
-.article-content {
+.comment-content {
     font-size: 1.5em;
     line-height: 1.5
 }
-.article-content img {
+.comment-content img {
     max-width: 100%
 }
-.article-images img {
+.comment-images img {
     width: 100%
 }
-.article-title {
+.comment-title {
     margin-top: 5px
 }
-.article-meta {
+.comment-meta {
     margin: 10px 0 15px
 }
 .author-time {
@@ -712,7 +712,7 @@ img {
     font-size: .9em;
     font-weight: 500
 }
-.article p {
+.comment p {
     font-size: .8em;
     position: relative;
     padding: 0 0 .5em;

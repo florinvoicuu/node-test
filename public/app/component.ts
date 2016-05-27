@@ -3,12 +3,13 @@ import { RouteConfig, ROUTER_PROVIDERS } from 'angular2/router';
 import { HTTP_PROVIDERS, RequestOptions } from 'angular2/http';
 import { CookieService } from 'angular2-cookie/core';
 
-import { AlertComponent, Alerts } from '../alert/component'
+import { AlertComponent, Alerts } from '../directives/alert/component'
 import { UserComponent } from '../user/component';
 
 import { ExtendedRequestOptions } from '../common/extensions';
 import { ObservableUtilities } from '../common/utilities';
 import { SEO } from '../common/meta';
+import {CommentListComponent} from "../comment/component";
 
 @Component({
     selector: 'app',
@@ -30,6 +31,11 @@ import { SEO } from '../common/meta';
         path: '/user/:action',
         name: 'User',
         component: UserComponent,
+    },
+    {
+        path: '/',
+        name: 'Comments',
+        component: CommentListComponent,
         useAsDefault: true
     }
 ])

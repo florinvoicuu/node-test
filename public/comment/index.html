@@ -1,0 +1,34 @@
+<div id="Comments">
+    <form (ngSubmit)="search()">
+        <div class="ui-40 ui-input">
+            <input type="text" class="form-control" [(ngModel)]="list.params.content" placeholder="Search..."/>
+        </div>
+    </form>
+
+    <!-- Form -->
+    <form (ngSubmit)="submit()" novalidate class="text-center">
+        <div class="ui-input">
+            <input type="text" class="form-control comment" [(ngModel)]="comment.content" placeholder="Post something...">
+        </div>
+        <button type="submit" class="btn btn-white ui-40">Post</button>
+    </form>
+
+    <div class="ui-40">
+        <alerts></alerts>
+    </div>
+
+    <pagination *ngIf="list.pages > 1" [(list)]="list" (change)="page($event)" class="comment-pagination text-center"></pagination>
+
+    <div class="comment" *ngFor="let comment of list.items">
+        <div class="comment-main">
+            <div class="comment-description" [innerHTML]="comment.content"  [style.background]="comment.user.color"></div>
+        </div>
+    </div>
+
+    <div class="comment-main text-center" *ngIf="list.items.length === 0"><h3>No comments found!</h3></div>
+
+
+
+</div>
+
+<div class="clearfix"></div>

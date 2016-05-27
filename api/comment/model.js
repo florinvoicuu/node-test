@@ -14,6 +14,7 @@ var Schema   = mongoose.Schema;
 var CommentSchema = new Schema({
     user: {
         type: Schema.ObjectId,
+        ref: 'User',
         required: 'User required'
     },
     content: {
