@@ -34,7 +34,7 @@ import {CommentListComponent} from "../comment/component";
     },
     {
         path: '/',
-        name: 'Comments',
+        name: 'Comment',
         component: CommentListComponent,
         useAsDefault: true
     }

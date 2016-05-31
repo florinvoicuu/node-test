@@ -8,13 +8,15 @@ import { CommentService } from './service';
 import { CommentList, Comment } from './model';
 import { PaginationComponent } from '../directives/pagination/component';
 import { AlertComponent, Alert } from '../directives/alert/component';
+import { BadgeComponent } from  '../badge/component';
 
 @Component({
     selector: 'comments',
     templateUrl: './comment/index.html',
     directives: [
         PaginationComponent,
-        AlertComponent
+        AlertComponent,
+        BadgeComponent
     ],
     providers: [
         CommentService
@@ -44,7 +46,7 @@ export class CommentListComponent implements OnInit {
             this.list.page = Number(page);
         }
 
-        // check for size in cookie 'articles-per-page'
+    // check for size in cookie 'comments-per-page'
 
         this.list.params = _.pick({
             title: this._params.get("title")
@@ -55,24 +57,24 @@ export class CommentListComponent implements OnInit {
 
     submit () {
         this._observable.subscribe(this._comment.create(this.comment), comment => {
-            this._alert.add(new Alert('success', 'Felicitari, coment creat!'));
+            this._alert.add(new Alert('success', 'Felicitari, comment creat!'));
             this.update();
             this.comment.content = '';
         });
     }
 
-    size (size: number) {
-        // set cookie 'articles-per-page'
-    }
+size (size: number) {
+    // set cookie 'comments-per-page'
+}
 
     page (page) {
         this.list.page = page;
-        this._router.navigate(['Comments', _.assign(this._params.params, { page: page })]);
+        this._router.navigate(['Comment', _.assign(this._params.params, { page: page })]);
         this.update();
     }
 
     search () {
         this.list.page = 1;
-        this._router.navigate(['Comments', _.pick(this.list.params, _.identity) ]);
+        this._router.navigate(['Comment', _.pick(this.list.params, _.identity) ]);
     }
 }

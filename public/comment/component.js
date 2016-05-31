@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscore', '../common/utilities', './service', './model', '../directives/pagination/component', '../directives/alert/component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscore', '../common/utilities', './service', './model', '../directives/pagination/component', '../directives/alert/component', '../badge/component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_1, underscore_1, utilities_1, service_1, model_1, component_1, component_2;
+    var core_1, router_1, http_1, underscore_1, utilities_1, service_1, model_1, component_1, component_2, component_3;
     var CommentListComponent;
     return {
         setters:[
@@ -40,6 +40,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
             },
             function (component_2_1) {
                 component_2 = component_2_1;
+            },
+            function (component_3_1) {
+                component_3 = component_3_1;
             }],
         execute: function() {
             CommentListComponent = (function () {
@@ -60,7 +63,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                     if (page) {
                         this.list.page = Number(page);
                     }
-                    // check for size in cookie 'articles-per-page'
+                    // check for size in cookie 'comments-per-page'
                     this.list.params = underscore_1.default.pick({
                         title: this._params.get("title")
                     }, underscore_1.default.identity);
@@ -69,22 +72,22 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                 CommentListComponent.prototype.submit = function () {
                     var _this = this;
                     this._observable.subscribe(this._comment.create(this.comment), function (comment) {
-                        _this._alert.add(new component_2.Alert('success', 'Felicitari, coment creat!'));
+                        _this._alert.add(new component_2.Alert('success', 'Felicitari, comment creat!'));
                         _this.update();
                         _this.comment.content = '';
                     });
                 };
                 CommentListComponent.prototype.size = function (size) {
-                    // set cookie 'articles-per-page'
+                    // set cookie 'comments-per-page'
                 };
                 CommentListComponent.prototype.page = function (page) {
                     this.list.page = page;
-                    this._router.navigate(['Comments', underscore_1.default.assign(this._params.params, { page: page })]);
+                    this._router.navigate(['Comment', underscore_1.default.assign(this._params.params, { page: page })]);
                     this.update();
                 };
                 CommentListComponent.prototype.search = function () {
                     this.list.page = 1;
-                    this._router.navigate(['Comments', underscore_1.default.pick(this.list.params, underscore_1.default.identity)]);
+                    this._router.navigate(['Comment', underscore_1.default.pick(this.list.params, underscore_1.default.identity)]);
                 };
                 __decorate([
                     core_1.ViewChild(component_2.AlertComponent), 
@@ -96,7 +99,8 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                         templateUrl: './comment/index.html',
                         directives: [
                             component_1.PaginationComponent,
-                            component_2.AlertComponent
+                            component_2.AlertComponent,
+                            component_3.BadgeComponent
                         ],
                         providers: [
                             service_1.CommentService

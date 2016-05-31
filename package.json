@@ -32,14 +32,7 @@
     "underscore": "^1.8.3",
     "zone.js": "^0.6.12"
   },
-  "scripts": {
-    "start": "node index.js",
-    "test": "for test in test/*.spec.js; do NODE_ENV=test ./node_modules/.bin/mocha $test; done",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings",
-    "postinstall": "typings install"
-  },
+
   "author": {
     "name": "Florin Voicu",
     "email": "florinvoicuu@gmail.com"
