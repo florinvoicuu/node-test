@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscore', '../common/utilities', './service', './model', '../directives/pagination/component', '../directives/alert/component', '../badge/component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscore', '../common/utilities', '../directives/alert/component', './service', './model', '../directives/pagination/component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_1, underscore_1, utilities_1, service_1, model_1, component_1, component_2, component_3;
+    var core_1, router_1, http_1, underscore_1, utilities_1, component_1, service_1, model_1, component_2;
     var CommentListComponent;
     return {
         setters:[
@@ -29,20 +29,17 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
             function (utilities_1_1) {
                 utilities_1 = utilities_1_1;
             },
+            function (component_1_1) {
+                component_1 = component_1_1;
+            },
             function (service_1_1) {
                 service_1 = service_1_1;
             },
             function (model_1_1) {
                 model_1 = model_1_1;
             },
-            function (component_1_1) {
-                component_1 = component_1_1;
-            },
             function (component_2_1) {
                 component_2 = component_2_1;
-            },
-            function (component_3_1) {
-                component_3 = component_3_1;
             }],
         execute: function() {
             CommentListComponent = (function () {
@@ -53,6 +50,8 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                     this._observable = _observable;
                     this.list = new model_1.CommentList;
                     this.comment = new model_1.Comment;
+                    this.BADGE_TYPES = ['fa-coffee', 'fa-diamond', 'fa-database'];
+                    this.BADGE_COLORS = ['brown', 'red', 'green'];
                     this._urlSearchParams = new http_1.URLSearchParams;
                 }
                 CommentListComponent.prototype.update = function () {
@@ -72,9 +71,9 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                 CommentListComponent.prototype.submit = function () {
                     var _this = this;
                     this._observable.subscribe(this._comment.create(this.comment), function (comment) {
-                        _this._alert.add(new component_2.Alert('success', 'Felicitari, comment creat!'));
                         _this.update();
                         _this.comment.content = '';
+                        _this._alert.add(new component_1.Alert('success', 'Comment creat!'));
                     });
                 };
                 CommentListComponent.prototype.size = function (size) {
@@ -89,18 +88,32 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                     this.list.page = 1;
                     this._router.navigate(['Comment', underscore_1.default.pick(this.list.params, underscore_1.default.identity)]);
                 };
+                CommentListComponent.prototype.badge = function (comment, type) {
+                    this._observable.subscribe(this._comment.badge(comment._id, type), function (newComment) {
+                        comment.badges = newComment.badges;
+                    });
+                };
+                CommentListComponent.prototype.badges = function (comment) {
+                    var badges = [0, 0, 0];
+                    for (var _i = 0, _a = comment.badges; _i < _a.length; _i++) {
+                        var badge = _a[_i];
+                        if (underscore_1.default.contains(this.BADGE_TYPES, badge.type)) {
+                            badges[underscore_1.default.indexOf(this.BADGE_TYPES, badge.type)]++;
+                        }
+                    }
+                    return badges;
+                };
                 __decorate([
-                    core_1.ViewChild(component_2.AlertComponent), 
-                    __metadata('design:type', component_2.AlertComponent)
+                    core_1.ViewChild(component_1.AlertComponent), 
+                    __metadata('design:type', component_1.AlertComponent)
                 ], CommentListComponent.prototype, "_alert", void 0);
                 CommentListComponent = __decorate([
                     core_1.Component({
                         selector: 'comments',
                         templateUrl: './comment/index.html',
                         directives: [
-                            component_1.PaginationComponent,
-                            component_2.AlertComponent,
-                            component_3.BadgeComponent
+                            component_2.PaginationComponent,
+                            component_1.AlertComponent
                         ],
                         providers: [
                             service_1.CommentService

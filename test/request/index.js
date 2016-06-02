@@ -1,7 +1,7 @@
 'use strict';
 
 var config  = require('../../config/config');
-var util  = require('../util');
+var util    = require('../util');
 
 var xsrfToken;
 

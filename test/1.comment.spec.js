@@ -47,7 +47,28 @@ describe('Comment', function () {
 
     describe(`PUT ${uri}/:id`, () => {
         it(`should update an comment`, () => co (function *() {
-            yield crud.updateResource(sample.comment(res.body.user));
+            res = yield crud.updateResource(sample.comment(res.body.user));
+        }));
+    });
+
+    describe(`GET ${uri}/:id/badge/:type`, () => {
+        it(`should retrieve an comment`, () => co (function *() {
+            let comment = res.body;
+            res = yield request({ uri: `${uri}/${comment._id}/badge/my-rinky-dinky-type` });
+
+            expect(res.statusCode).to.equal(200, util.errMsg(res, 'body'));
+            expect(res.body).to.be.an('object', util.errMsg(res, 'body'));
+            expect(res.body._id).to.be.a('string', util.errMsg(res, 'body'));
+            expect(res.body.user).to.eql(comment.user, util.errMsg(res, 'body'));
+            expect(res.body.content).to.equal(comment.content, util.errMsg(res, 'body'));
+
+            let badge = {
+                user: comment.user._id,
+                type: 'my-rinky-dinky-type',
+                comment: comment._id
+            };
+
+            expect(_.map(res.body.badges, badge => _.pick(badge, ['user', 'type', 'comment']))).to.eql([ badge ], util.errMsg(res, 'body'));
         }));
     });
 

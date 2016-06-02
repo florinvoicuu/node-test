@@ -3,9 +3,9 @@
 module.exports = {
     errMsg: (res, name) => `
         ${name || 'error'}:
-
+        
         ${JSON.stringify(res[name])}
-
+        
         ${res.statusCode} : ${res.statusMessage}
         `,
     getJWTCookie: headers => {

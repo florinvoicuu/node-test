@@ -6,7 +6,7 @@ import { AlertComponent, Alert } from '../directives/alert/component';
 import { ObservableUtilities } from '../common/utilities';
 import { UserService } from './service';
 import { User } from './model';
-import {CommentListComponent} from "../comment/component";
+import { CommentListComponent } from '../comment/component';
 
 @Component({
     selector: 'user',
@@ -17,7 +17,7 @@ import {CommentListComponent} from "../comment/component";
     ],
     providers: [
         UserService
-            ]
+    ]
 })
 export class UserComponent implements OnInit {
     @ViewChild(AlertComponent) _alert: AlertComponent;
@@ -34,12 +34,12 @@ export class UserComponent implements OnInit {
     ngOnInit () {
         this.signup = this._params.get('action') === 'signup';
         this._observable.subscribe(this._user.retrieve(), user => this.user = user);
-
     }
+
     create () {
         this._observable.subscribe(this._user.create(this.user), user => {
             this._alert.add(new Alert('success', 'Felicitari, te-ai inregistrat!'));
-            this._router.navigate(['Comment'])
+            this._router.navigate(['User', { action: 'comments' }])
         });
     }
 

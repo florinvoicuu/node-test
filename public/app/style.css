@@ -820,4 +820,39 @@ img {
     color: #000
 }
 
-/*de mine modificat*/
+ul {
+    list-style-type:none
+}
+ul li a{
+    display: inline-block;
+}
+ul li a:hover, ul li a:focus {
+    color:red;
+}
+#notiContainer {
+    position:relative;
+    margin: 4px;
+    width:16px;
+    height:16px;
+}
+.noti_bubble {
+    position:absolute;
+    top: -6px;
+    right:-6px;
+    padding:1px 4px 1px 4px;
+    background-color:red;
+    color:white;
+    font-weight:bold;
+    font-size:0.55em;
+
+    border-radius:30px;
+    box-shadow:1px 1px 1px gray;
+}
+
+.one-pixel-right {
+    margin-left: 1px;
+}
+
+.red {
+    color: red;
+}

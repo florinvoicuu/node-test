@@ -70,7 +70,7 @@ UserSchema.methods = {
     },
     hashPassword: function(password) {
         var salt = new Buffer(this.salt, 'base64');
-        // password, salt, 3000, 64
+        //password, salt, 3000, 64
         return crypto.pbkdf2Sync(password, salt, 3000, 64, 'sha512').toString('base64');
     }
 };

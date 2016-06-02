@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose');
-
+var _        = require('lodash');
 var Schema   = mongoose.Schema;
 
 /**
@@ -22,7 +22,7 @@ var CommentSchema = new Schema ({
         required: "Post requires content.",
         trim: true
     },
-    badge: [{
+    badges: [{
         type: Schema.ObjectId,
         ref: "Badge"
     }]

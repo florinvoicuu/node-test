@@ -1,9 +1,15 @@
 'use strict';
 
-var _        = require('lodash');
-var sanitize = require('sanitize-html');
+var _           = require('lodash');
+var sanitize    = require('sanitize-html');
+var request     = require('request');
+var mongoose    = require('mongoose');
 
-var Comment = require('./model');
+var config      = require('../../config/config');
+var coe         = require('../../modules/coe');
+
+var Comment     = require('./model');
+var Badge       = require('../badge/model');
 
 module.exports = {
     create: (req, res, next) => {
@@ -18,7 +24,13 @@ module.exports = {
             if (err)
                 return res.status(500).send(err);
 
-            res.location('/api/comment/' + comment._id).status(201).json(comment);
+            Comment.populate(comment, { path: 'user badges' }, (err, comment) => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+
+                res.location('/api/comment/' + comment._id).status(201).json(comment);
+            });
         });
     },
 
@@ -27,10 +39,10 @@ module.exports = {
             return res.status(400).send('ID Required');
         }
 
-        Comment.findById(req.params.id, (err, comment) => {
+        Comment.findById(req.params.id, null, { lean: true, populate: 'user badges' }, (err, comment) => {
             if (err)
                 return res.status(500).send(err);
-            
+
             if (!comment)
                 return res.status(404).end();
 
@@ -45,7 +57,7 @@ module.exports = {
 
         Comment.findByIdAndUpdate(req.params.id, { $set: {
             content: sanitize(req.body.content, {allowedTags: sanitize.defaults.allowedTags.concat(['img'])})
-        }}, { lean: true, new: true }, (err, comment) => {
+        }}, { lean: true, new: true, populate:'user badges' }, (err, comment) => {
             if (err)
                 return res.status(500).send(err);
 
@@ -71,7 +83,7 @@ module.exports = {
 
         let range = parseRange(req.headers['range']);
 
-        Comment.find(query, '', { lean: true, skip: range.skip, limit: range.limit, sort: '-created', populate: 'user' }, (err, comments) => {
+        Comment.find(query, '', { lean: true, skip: range.skip, limit: range.limit, sort: '-created', populate:'user badges' }, (err, comments) => {
             if (err)
                 return res.status(500).send(err);
 
@@ -89,6 +101,37 @@ module.exports = {
                 res.set("Content-Range", `comments ${range.skip}-${range.skip + range.limit}/${count}`);
 
                 res.status(206).json(comments);
+            });
+        });
+    },
+
+    badge: (req, res, next) => {
+        if (!req.user){
+            return res.status(401).send('Not authenticated');
+        }
+
+        if (!req.params.id) {
+            return res.status(400).send('Comment ID required');
+        }
+
+        if (!req.params.type) {
+            return res.status(400).send('Badge type required');
+        }
+
+        Badge.create({
+            user: req.user._id,
+            type: req.params.type,
+            comment: req.params.id
+        }, (err, badge) => {
+            if (err)
+                return res.status(500).send(err);
+
+            Comment.findByIdAndUpdate(req.params.id, { $addToSet: { badges: badge._id } }, { lean: true, new: true, populate: 'user badges' }, (err, comment) => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+
+                return res.status(200).json(comment);
             });
         });
     }
@@ -114,6 +157,12 @@ function parseRange(range) {
         skip: skip,
         limit: limit
     };
+}
+
+function sanitizeComment(comment) {
+    return _.pickBy({
+        content:        sanitize(comment.content, { allowedTags: sanitize.defaults.allowedTags.concat(['img']) })
+    });
 }
 
 /*

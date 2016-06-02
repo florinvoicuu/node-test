@@ -18,8 +18,8 @@ configRoutes(app, express);
 
 
 // Start the server/Listen for requests on the desired port
-var server = app.listen(3000, function () {
-    return console.log(`Dollars listening on port 3000 in ${config.env} mode`);
+var server = app.listen(config.port, function () {
+    return console.log(`Dollars listening on port ${config.port} in ${config.env} mode`);
 });
 
 module.exports = server;

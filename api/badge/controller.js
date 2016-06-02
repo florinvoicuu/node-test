@@ -14,8 +14,8 @@ module.exports = {
 
         Badge.create({
             user: req.user._id,
-            type: req.body.content,
-            comment: req.comment._id
+            type: req.body.type,
+            comment: req.body.comment
         }, (err, badge) => {
             if (err)
                 return res.status(500).send(err);
@@ -47,9 +47,7 @@ module.exports = {
 
         Badge.findByIdAndUpdate(req.params.id, {
             $set: {
-                user: req.user._id,
-                type: req.body.content,
-                comment: req.comment._id
+                type: req.body.type                      
             }
         }, {lean: true, new: true}, (err, badge) => {
             if (err)
@@ -71,4 +69,4 @@ module.exports = {
             res.status(204).end();
         });
     }
-}
+};

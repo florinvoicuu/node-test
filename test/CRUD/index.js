@@ -63,7 +63,7 @@ class CRUD
 
             expect(res.statusCode).to.equal(200, util.errMsg(res, 'body'));
             expect(res.body).to.be.an('object', util.errMsg(res, 'body'));
-            expect(_.pick(res.body, self.properties)).to.be.eql(_.pick(updatedResource, self.properties), util.errMsg(res, 'body'));
+            expect(_.pick(res.body, self.properties)).to.eql(_.pick(updatedResource, self.properties), util.errMsg(res, 'body'));
             expect(res.body._id).to.equal(self.resource._id, util.errMsg(res, 'body'));
             expect(res.body.created).to.equal(self.resource.created, util.errMsg(res, 'body'));
             expect(new Date(res.body.updated).getTime()).to.be.greaterThan(new Date(self.resource.updated).getTime(), util.errMsg(res, 'body'));
@@ -87,7 +87,7 @@ class CRUD
             return res;
         });
     }
-    
+
     retrieveRange (newResource, type) {
         let self = this;
         return co (function *() {

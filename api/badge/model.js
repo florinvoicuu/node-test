@@ -8,11 +8,11 @@ var BadgeSchema = new Schema ({
     user: {
         type: Schema.ObjectId,
         ref: "User",
-        required: "Comment requires an user (id)."
+        required: "Badge must be connected to a user."
     },
     type: {
         type: String,
-        required: "Post requires content.",
+        required: "Badge requires a type.",
         trim: true
     },
     comment: {

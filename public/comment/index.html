@@ -1,4 +1,4 @@
-<div>
+<div id="Comments">
     <form (ngSubmit)="search()">
         <div class="ui-40 ui-input">
             <input type="text" class="form-control" [(ngModel)]="list.params.content" placeholder="Search..."/>
@@ -17,10 +17,23 @@
         <alerts></alerts>
     </div>
 
+
     <pagination *ngIf="list.pages > 1" [(list)]="list" (change)="page($event)" class="comment-pagination text-center"></pagination>
+
+    <!-- Badges + Comments-->
 
     <div class="comment" *ngFor="let comment of list.items">
         <div class="comment-main">
+
+            <div class="badges">
+                <ul>
+                    <li id="notiContainer" *ngFor="let number of badges(comment); let i = index" (click)="badge(comment, BADGE_TYPES[i])">
+                        <i class="fa {{BADGE_TYPES[i]}} {{number ? BADGE_COLORS[i] : ''}}"></i>
+                        <div *ngIf="number" class="noti_bubble"><span class="one-pixel-right">{{number}}</span></div>
+                    </li>
+                </ul>
+            </div>
+
             <div class="comment-description" [innerHTML]="comment.content"  [style.background]="comment.user.color"></div>
         </div>
     </div>
@@ -28,7 +41,7 @@
     <div class="comment-main text-center" *ngIf="list.items.length === 0"><h3>No comments found!</h3></div>
 
 
-
 </div>
 
 <div class="clearfix"></div>
+

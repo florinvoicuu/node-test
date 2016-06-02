@@ -65,4 +65,10 @@ export class CommentService {
             })
             .catch(this._observable.error);
     }
+
+    badge (id: string, type: string) {
+        return this._http.get(`${this._uri}/${id}/badge/${type}`)
+            .map(this._observable.json)
+            .catch(this._observable.error);
+    }
 }

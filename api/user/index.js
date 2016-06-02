@@ -12,7 +12,7 @@ module.exports = express => {
     router.delete ('/:id',  user.delete);
 
     // OTHER
-     router.post('/signin',   user.authenticate);
+    router.post('/signin',   user.authenticate);
 
     return router;
 };

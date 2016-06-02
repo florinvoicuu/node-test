@@ -4,19 +4,19 @@ import { URLSearchParams } from 'angular2/http';
 import  _ from 'underscore';
 
 import { ObservableUtilities } from '../common/utilities';
-import { CommentService } from './service';
-import { CommentList, Comment } from './model';
-import { PaginationComponent } from '../directives/pagination/component';
 import { AlertComponent, Alert } from '../directives/alert/component';
-import { BadgeComponent } from  '../badge/component';
+
+import { CommentService } from './service';
+import { CommentList, Comment, Badge } from './model';
+import { PaginationComponent } from '../directives/pagination/component';
+
 
 @Component({
     selector: 'comments',
     templateUrl: './comment/index.html',
     directives: [
         PaginationComponent,
-        AlertComponent,
-        BadgeComponent
+        AlertComponent
     ],
     providers: [
         CommentService
@@ -24,8 +24,13 @@ import { BadgeComponent } from  '../badge/component';
 })
 export class CommentListComponent implements OnInit {
     @ViewChild(AlertComponent) private _alert: AlertComponent;
+
     list: CommentList = new CommentList;
-    comment : Comment = new Comment;
+
+    comment: Comment = new Comment;
+
+    BADGE_TYPES: Array<string> = ['fa-coffee', 'fa-diamond', 'fa-database'];
+    BADGE_COLORS: Array<string> = ['brown', 'red', 'green'];
 
     private _urlSearchParams: URLSearchParams = new URLSearchParams;
 
@@ -46,7 +51,7 @@ export class CommentListComponent implements OnInit {
             this.list.page = Number(page);
         }
 
-    // check for size in cookie 'comments-per-page'
+        // check for size in cookie 'comments-per-page'
 
         this.list.params = _.pick({
             title: this._params.get("title")
@@ -57,17 +62,18 @@ export class CommentListComponent implements OnInit {
 
     submit () {
         this._observable.subscribe(this._comment.create(this.comment), comment => {
-            this._alert.add(new Alert('success', 'Felicitari, comment creat!'));
             this.update();
             this.comment.content = '';
+
+            this._alert.add(new Alert('success', 'Comment creat!'));
         });
     }
 
-size (size: number) {
-    // set cookie 'comments-per-page'
-}
+    size (size: number) {
+        // set cookie 'comments-per-page'
+    }
 
-    page (page) {
+    page (page: number) {
         this.list.page = page;
         this._router.navigate(['Comment', _.assign(this._params.params, { page: page })]);
         this.update();
@@ -76,5 +82,23 @@ size (size: number) {
     search () {
         this.list.page = 1;
         this._router.navigate(['Comment', _.pick(this.list.params, _.identity) ]);
+    }
+
+    badge (comment: Comment, type: string) {
+        this._observable.subscribe(this._comment.badge(comment._id, type), newComment => {
+            comment.badges = newComment.badges;
+        });
+    }
+
+    badges (comment) {
+        let badges = [0, 0, 0];
+
+        for (let badge of comment.badges) {
+            if (_.contains(this.BADGE_TYPES, badge.type)) {
+                badges[_.indexOf(this.BADGE_TYPES, badge.type)]++;
+            }
+        }
+
+        return badges;
     }
 }
