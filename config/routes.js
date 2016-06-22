@@ -11,8 +11,10 @@ module.exports = function (app, express) {
     app.use('/api/user', require(config.root + '/api/user')(express));
     app.use('/api/comment', require(config.root + '/api/comment')(express));
     app.use('/api/badge', require(config.root + '/api/badge')(express));
+    app.use('/api/commenter', require(config.root + '/api/commenter')(express));
     
     app.post('/signup', require(config.root + '/api/user')(express));
+    
 
     app.post('/contact', contact);
 

@@ -5,11 +5,13 @@ import { CookieService } from 'angular2-cookie/core';
 
 import { AlertComponent, Alerts } from '../directives/alert/component'
 import { UserComponent } from '../user/component';
+import { CommenterComponent } from '../commenter/component';
 import { CommentListComponent } from '../comment/component';
 
 import { ExtendedRequestOptions } from '../common/extensions';
 import { ObservableUtilities } from '../common/utilities';
 import { SEO } from '../common/meta';
+import {Commenter} from "../commenter/model";
 
 @Component({
     selector: 'app',
@@ -30,27 +32,26 @@ import { SEO } from '../common/meta';
     {
         path: '/user/:action',
         name: 'User',
-        component: UserComponent,
+        component: UserComponent
+    },
+
+    {
+        path: '/profile',
+        name: 'CommenterprofileId',
+        component: CommenterComponent,
+      },
+    {
+        path: '/commenter/:id',
+        name: 'CommenterId',
+        component: CommenterComponent,
     },
     {
         path: '/',
         name: 'Comment',
         component: CommentListComponent,
         useAsDefault: true
-    }
-    
-    /* MIGHT need later */
-    
-/*    {
-        path: '/author/signup',
-        name: 'AuthorSignup',
-        component: AuthorComponent,
     },
-    {
-        path: '/author/:id',
-        name: 'AuthorId',
-        component: AuthorComponent,
-    },*/
+
 
 ])
 export class AppComponent {}

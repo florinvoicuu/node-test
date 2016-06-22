@@ -686,7 +686,7 @@ img {
     color: #555
 }
 .comment p,
-.author-time {
+.commenter-time {
     color: #666;
     font-family: 'Open Sans', sans-serif;
     -webkit-font-smoothing: antialiased
@@ -707,7 +707,7 @@ img {
 .comment-meta {
     margin: 10px 0 15px
 }
-.author-time {
+.commenter-time {
     line-height: 1.2;
     font-size: .9em;
     font-weight: 500
@@ -771,7 +771,7 @@ img {
 .clearfix {
     display: block
 }
-.author-header {
+.commenter-header {
     font-weight: 700;
     font-size: 1.8em;
     color: #000;
@@ -780,27 +780,27 @@ img {
     padding-bottom: .5em;
     line-height: 1.1em
 }
-.author-info-image {
+.commenter-info-image {
     float: left;
     width: 7em;
     height: 7em;
     overflow: hidden;
     border-radius: 100%
 }
-.author-info-image img {
+.commenter-info-image img {
     height: 100%
 }
-.author-info-container {
+.commenter-info-container {
     float: left;
     width: 67%;
     margin-left: 1.75em
 }
-.author-info-community-status {
+.commenter-info-community-status {
     display: block;
     font-weight: 700;
     font-size: 1em
 }
-.author-info-description {
+.commenter-info-description {
     display: block;
     font-weight: 500;
     font-size: 1em;

@@ -11,6 +11,23 @@
             <input type="text" class="form-control comment" [(ngModel)]="comment.content" placeholder="Post something...">
         </div>
         <button type="submit" class="btn btn-white ui-40">Post</button>
+        <div class="text-center">
+
+            <div class="clearfix"></div>
+            <div class="ui-action bg-white" *ngIf="!commenter">
+                <div class="text-center">
+                    <a [routerLink]="['CommenterprofileId']"><h4>Become a Commenter!</h4></a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="ui-action bg-white" *ngIf="commenter">
+                <div class="text-center">
+                    <a [routerLink]="['CommenterId', { id: user._id }]"><h4>Update your Profile!</h4></a>
+                </div>
+            </div>
+
+
+        </div>
     </form>
 
     <div class="ui-40">
@@ -25,23 +42,26 @@
     <div class="comment" *ngFor="let comment of list.items">
         <div class="comment-main">
 
-            <div class="badges">
-                <ul>
-                    <li id="notiContainer" *ngFor="let number of badges(comment); let i = index" (click)="badge(comment, BADGE_TYPES[i])">
-                        <i class="fa {{BADGE_TYPES[i]}} {{number ? BADGE_COLORS[i] : ''}}"></i>
-                        <div *ngIf="number" class="noti_bubble"><span class="one-pixel-right">{{number}}</span></div>
-                    </li>
-                </ul>
+            <div>
+                <div class="comment-info-community-status orange">{{comment.user.name}}</div>
             </div>
 
-            <div class="comment-description" [innerHTML]="comment.content"  [style.background]="comment.user.color"></div>
+            <ul>
+                <li style="display: inline" id="notiContainer" *ngFor="let number of badges(comment); let i = index" (click)="badge(comment, BADGE_TYPES[i])">
+                    <i class="fa {{BADGE_TYPES[i]}} {{number ? BADGE_COLORS[i] : ''}}"></i>
+                    <div *ngIf="number" class="noti_bubble"><span class="one-pixel-right">{{number}}</span></div>
+                </li>
+            </ul>
         </div>
+
+        <div class="comment-description" [innerHTML]="comment.content"  [style.background]="comment.user.color"></div>
     </div>
-
-    <div class="comment-main text-center" *ngIf="list.items.length === 0"><h3>No comments found!</h3></div>
-
-
 </div>
+
+
+<div class="comment-main text-center" *ngIf="list.items.length === 0"><h3>No comments found!</h3></div>
+
+
 
 <div class="clearfix"></div>
 

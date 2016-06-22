@@ -8,7 +8,7 @@ var configExpress   = require('./config/express');
 var configRoutes    = require('./config/routes');
 
 mongoose.connect(config.mongodb.uri);
-//mongoose.connect(config.mongodb.uri, config.mongodb.options);   //Ce face Options aici ?
+//mongoose.connect(config.mongodb.uri, config.mongodb.options);   
 
 var app = express();
 

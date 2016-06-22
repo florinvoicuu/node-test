@@ -34,25 +34,25 @@ describe('Comment', function () {
     // CRUD
     let res;
     describe(`POST ${uri}`, () => {
-        it(`should create an comment`, () => co (function *() {
+        it(`should create a comment`, () => co (function *() {
             res = yield crud.createResource(sample.comment());
         }));
     });
 
     describe(`GET ${uri}/:id`, () => {
-        it(`should retrieve an comment`, () => co (function *() {
+        it(`should retrieve a comment`, () => co (function *() {
             yield crud.retrieveResource();
         }));
     });
 
     describe(`PUT ${uri}/:id`, () => {
-        it(`should update an comment`, () => co (function *() {
+        it(`should update a comment`, () => co (function *() {
             res = yield crud.updateResource(sample.comment(res.body.user));
         }));
     });
 
     describe(`GET ${uri}/:id/badge/:type`, () => {
-        it(`should retrieve an comment`, () => co (function *() {
+        it(`should retrieve a comment`, () => co (function *() {
             let comment = res.body;
             res = yield request({ uri: `${uri}/${comment._id}/badge/my-rinky-dinky-type` });
 
@@ -73,7 +73,7 @@ describe('Comment', function () {
     });
 
     describe(`DELETE ${uri}/:id`, () => {
-        it(`should delete an comment`, () => co (function *() {
+        it(`should delete a comment`, () => co (function *() {
             yield crud.deleteResource();
         }));
     });

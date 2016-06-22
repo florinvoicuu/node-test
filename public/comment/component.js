@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscore', '../common/utilities', '../directives/alert/component', './service', './model', '../directives/pagination/component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscore', '../common/utilities', '../directives/alert/component', './service', './model', '../directives/pagination/component', "../commenter/component", '../commenter/service', '../user/component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_1, underscore_1, utilities_1, component_1, service_1, model_1, component_2;
+    var core_1, router_1, http_1, underscore_1, utilities_1, component_1, service_1, model_1, component_2, component_3, service_2, component_4, component_5;
     var CommentListComponent;
     return {
         setters:[
@@ -40,14 +40,27 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
             },
             function (component_2_1) {
                 component_2 = component_2_1;
+            },
+            function (component_3_1) {
+                component_3 = component_3_1;
+            },
+            function (service_2_1) {
+                service_2 = service_2_1;
+            },
+            function (component_4_1) {
+                component_4 = component_4_1;
+                component_5 = component_4_1;
             }],
         execute: function() {
             CommentListComponent = (function () {
-                function CommentListComponent(_comment, _router, _params, _observable) {
+                function CommentListComponent(_commenter, _user, _comment, _router, _params, _observable) {
+                    this._commenter = _commenter;
+                    this._user = _user;
                     this._comment = _comment;
                     this._router = _router;
                     this._params = _params;
                     this._observable = _observable;
+                    this.user = new component_4.User;
                     this.list = new model_1.CommentList;
                     this.comment = new model_1.Comment;
                     this.BADGE_TYPES = ['fa-coffee', 'fa-diamond', 'fa-database'];
@@ -55,14 +68,25 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                     this._urlSearchParams = new http_1.URLSearchParams;
                 }
                 CommentListComponent.prototype.update = function () {
-                    this._observable.subscribe(this._comment.retrieveRange(this.list));
+                    var _this = this;
+                    this._observable.subscribe(this._comment.retrieveRange(this.list), function (list) {
+                        var _loop_1 = function(comment) {
+                            _this._observable.subscribe(_this._commenter.retrieve(comment.user._id), function (commenter) { return comment.commenter = commenter; });
+                        };
+                        for (var _i = 0, _a = _this.list.items; _i < _a.length; _i++) {
+                            var comment = _a[_i];
+                            _loop_1(comment);
+                        }
+                    });
                 };
                 CommentListComponent.prototype.ngOnInit = function () {
+                    var _this = this;
                     var page = this._params.get("page");
                     if (page) {
                         this.list.page = Number(page);
                     }
                     // check for size in cookie 'comments-per-page'
+                    this._observable.subscribe(this._user.retrieve(), function (user) { return _this.user = user; });
                     this.list.params = underscore_1.default.pick({
                         title: this._params.get("title")
                     }, underscore_1.default.identity);
@@ -113,13 +137,17 @@ System.register(['angular2/core', 'angular2/router', 'angular2/http', 'underscor
                         templateUrl: './comment/index.html',
                         directives: [
                             component_2.PaginationComponent,
-                            component_1.AlertComponent
+                            component_1.AlertComponent,
+                            component_3.CommenterComponent,
+                            component_5.UserComponent
                         ],
                         providers: [
-                            service_1.CommentService
+                            service_1.CommentService,
+                            service_2.CommenterService,
+                            component_4.UserService
                         ]
                     }), 
-                    __metadata('design:paramtypes', [service_1.CommentService, router_1.Router, router_1.RouteParams, utilities_1.ObservableUtilities])
+                    __metadata('design:paramtypes', [service_2.CommenterService, component_4.UserService, service_1.CommentService, router_1.Router, router_1.RouteParams, utilities_1.ObservableUtilities])
                 ], CommentListComponent);
                 return CommentListComponent;
             }());

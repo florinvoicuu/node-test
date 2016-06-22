@@ -46,7 +46,7 @@
 </form>
 
 <div class="text-center">
-    <button type="button" class="ui-button text-center" (click)="signout()">Sign Out</button>
+    <button type="button" class="ui-button text-center" *ngIf="user._id" (click)="signout()">Sign Out</button>
 </div>
 
 <comments *ngIf="user._id"></comments>

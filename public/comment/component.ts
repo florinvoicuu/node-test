@@ -9,6 +9,13 @@ import { AlertComponent, Alert } from '../directives/alert/component';
 import { CommentService } from './service';
 import { CommentList, Comment, Badge } from './model';
 import { PaginationComponent } from '../directives/pagination/component';
+import { CommenterComponent } from "../commenter/component";
+import { Commenter } from "../commenter/model";
+import { CommenterService } from '../commenter/service'
+import { UserService, User } from '../user/component';
+import { UserComponent } from '../user/component'
+
+
 
 
 @Component({
@@ -16,15 +23,19 @@ import { PaginationComponent } from '../directives/pagination/component';
     templateUrl: './comment/index.html',
     directives: [
         PaginationComponent,
-        AlertComponent
+        AlertComponent,
+        CommenterComponent,
+        UserComponent
     ],
     providers: [
-        CommentService
+        CommentService,
+        CommenterService,
+        UserService
     ]
 })
 export class CommentListComponent implements OnInit {
     @ViewChild(AlertComponent) private _alert: AlertComponent;
-
+    user: User = new User;
     list: CommentList = new CommentList;
 
     comment: Comment = new Comment;
@@ -35,6 +46,8 @@ export class CommentListComponent implements OnInit {
     private _urlSearchParams: URLSearchParams = new URLSearchParams;
 
     constructor (
+        private _commenter: CommenterService,
+        private _user: UserService,
         private _comment: CommentService,
         private _router: Router,
         private _params: RouteParams,
@@ -42,7 +55,11 @@ export class CommentListComponent implements OnInit {
     ) {}
 
     update () {
-        this._observable.subscribe(this._comment.retrieveRange(this.list));
+        this._observable.subscribe(this._comment.retrieveRange(this.list), list => {
+            for( let comment  of this.list.items) {
+                this._observable.subscribe(this._commenter.retrieve(comment.user._id), commenter => comment.commenter = commenter)
+            }
+        });
     }
 
     ngOnInit () {
@@ -52,7 +69,7 @@ export class CommentListComponent implements OnInit {
         }
 
         // check for size in cookie 'comments-per-page'
-
+        this._observable.subscribe(this._user.retrieve(), user => this.user = user);
         this.list.params = _.pick({
             title: this._params.get("title")
         }, _.identity);
